@@ -1,4 +1,5 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { sql } from "drizzle-orm";
 
 
 export const uf = sqliteTable("uf", {
@@ -17,7 +18,7 @@ export const cidade = sqliteTable("cidade", {
 export const noticia = sqliteTable("noticia", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   titulo: text("titulo").notNull(),
-  texto: text("texto"),
+  texto: text("texto").notNull(),
   cidadeId: integer("cidade_id").notNull().references(() => cidade.id),
-  dataCriacao: text("data_criacao").default("CURRENT_TIMESTAMP"),
+  dataCriacao: integer("data_criacao", { mode: "timestamp" }).default(sql`(unixepoch())`)  
 });
