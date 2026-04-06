@@ -1,5 +1,5 @@
 
-import { Noticia } from "../../domain/noticia/noticia-interface";
+import { AgrupamentoNoticias, Noticia } from "../../domain/noticia/noticia-interface";
 import { db } from "../../drizzle/db";
 import { cidade, noticia, uf } from "../../drizzle/db/schema";
 import { asc, desc, eq } from "drizzle-orm";
@@ -58,6 +58,7 @@ export class NoticiaRepository {
                 texto: noticia.texto,
                 cidadeId: noticia.cidadeId,
                 dataCriacao: noticia.dataCriacao,
+                nomeCidade: cidade.nome,
             })
             .from(noticia)
             .innerJoin(cidade, eq(noticia.cidadeId, cidade.id))
@@ -70,5 +71,40 @@ export class NoticiaRepository {
 
         return result.map(item => new Noticia(item));
 
+    }
+
+    async listarAgrupadoPorUf() {
+        const result = await db
+            .select({
+                titulo: noticia.titulo,
+                cidade: cidade.nome,
+                uf: uf.sigla,
+            })
+            .from(noticia)
+            .innerJoin(cidade, eq(noticia.cidadeId, cidade.id))
+            .innerJoin(uf, eq(cidade.ufId, uf.id))
+            .orderBy(asc(uf.sigla));
+
+        const grupos: Record<string, typeof result> = {};
+
+        result.forEach(item => {
+            if (!grupos[item.uf]) grupos[item.uf] = [];
+            grupos[item.uf].push(item);
+        });
+
+        let i = 1;
+
+        Object.entries(grupos).forEach(([uf, noticias]) => {
+            console.log(`# ${uf}\n`);
+
+            noticias.forEach(n => {
+                console.log(`${i} - ${n.titulo} - ${n.cidade}`);
+                i++;
+            });
+
+            console.log("");
+        });
+
+        return result
     }
 }

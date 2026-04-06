@@ -1,4 +1,5 @@
 import { cidade } from "../../drizzle/db/schema";
+import { Cidade } from "../cidade/cidade-interface";
 
 export interface NoticiaInterface {
     id?: number,
@@ -6,7 +7,14 @@ export interface NoticiaInterface {
     texto: string,
     cidadeId: number,
     dataCriacao?: Date | null
+    nomeCidade?: string | null
 }
+
+export interface AgrupamentoNoticias {
+    titulo: string,
+    cidade: string,
+    uf: string,
+} 
 
 export class Noticia {
     public id?: number;
@@ -14,6 +22,7 @@ export class Noticia {
     public texto: string;
     public cidadeId: number;
     public dataCriacao?: Date | null;
+    public nomeCidade?: string | null
 
 
     constructor({
@@ -22,12 +31,14 @@ export class Noticia {
         texto,
         cidadeId,
         dataCriacao,
+        nomeCidade,
     }: NoticiaInterface) {
         this.id = id;
         this.titulo = titulo;
         this.texto = texto;
         this.cidadeId = cidadeId;
         this.dataCriacao = dataCriacao;
+        this.nomeCidade = nomeCidade;
     }
 
     public msg(): string {
