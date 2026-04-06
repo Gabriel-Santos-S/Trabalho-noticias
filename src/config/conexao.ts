@@ -12,7 +12,7 @@ export class Conexao {
   public static conexao() {
     if (!Conexao.dbInstance) {
       try {
-        const dbFile = process.env.DB_FILE_NAME;
+        const dbFile = `${process.env.DB_FILE_NAME}.db`;
 
         if (!dbFile) {
           throw new Error("❗ DB_FILE_NAME não definido no .env");

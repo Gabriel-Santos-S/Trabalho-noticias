@@ -12,7 +12,7 @@ npm i
 
 ## 2. Configurar variáveis de ambiente
 
-Abra o arquivo `.exemplo.env` e altere o valor da variável:
+Abra o arquivo `.exemplo.env`, renomeie ele para `.env` e altere o valor da variável:
 
 ```env
 DB_FILE_NAME=
@@ -34,6 +34,6 @@ npx drizzle-kit migrate
 Por fim, inicie a aplicação com:
 
 ```bash
-npx tsx src/main.ts
+npm run dev
 ```
 
