@@ -1,4 +1,5 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { relations } from "drizzle-orm";
 import { sql } from "drizzle-orm";
 
 
@@ -22,3 +23,13 @@ export const noticia = sqliteTable("noticia", {
   cidadeId: integer("cidade_id").notNull().references(() => cidade.id),
   dataCriacao: integer("data_criacao", { mode: "timestamp" }).default(sql`(unixepoch())`)  
 });
+
+
+// Relações
+
+export const noticiaRelations = relations(noticia, ({ one }) => ({
+  cidade: one(cidade, {
+    fields: [noticia.cidadeId],
+    references: [cidade.id],
+  }),
+}));

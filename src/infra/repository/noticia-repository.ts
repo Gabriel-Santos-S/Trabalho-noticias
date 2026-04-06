@@ -2,7 +2,7 @@
 import { Noticia } from "../../domain/noticia/noticia-interface";
 import { db } from "../../drizzle/db";
 import { noticia } from "../../drizzle/db/schema";
-import { eq } from "drizzle-orm";
+import { asc, desc, eq } from "drizzle-orm";
 
 export class NoticiaRepository {
 
@@ -15,7 +15,27 @@ export class NoticiaRepository {
     }
 
     async findAll(): Promise<Noticia[]> {
-        const result = await db.query.noticia.findMany()
+        const result = await db.query.noticia.findMany({
+            with: {
+                cidade: true,
+            },
+        })
+
+        return result.map(item => new Noticia(item));
+    }
+
+    async findAllDecres(): Promise<Noticia[]> {
+        const result = await db.query.noticia.findMany({
+            orderBy: (noticia) => [desc(noticia.dataCriacao)],
+        })
+
+        return result.map(item => new Noticia(item));
+    }
+
+    async findAllCres(): Promise<Noticia[]> {
+        const result = await db.query.noticia.findMany({
+            orderBy: (noticia) => [asc(noticia.dataCriacao)],
+        })
 
         return result.map(item => new Noticia(item));
     }
