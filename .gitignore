@@ -140,3 +140,4 @@ vite.config.ts.timestamp-*
 
 # Database Local
 *.db
+drizzle/
