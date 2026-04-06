@@ -8,5 +8,5 @@
     "esModuleInterop": true,
     "skipLibCheck": true
   },
-  "include": ["src", "src/main.ts", "drizzle.config.ts"]
+  "include": ["src"]
 }
