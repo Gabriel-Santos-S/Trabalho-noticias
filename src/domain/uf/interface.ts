@@ -1,8 +1,5 @@
-
-
-
-interface UfInterface {
-    id: number,
+export interface UfInterface {
+    id?: number,
     nome: string,
     sigla: string
 }
@@ -18,6 +15,9 @@ export class Uf {
         this.sigla = sigla;
     }
 
+    public msg(): string {
+        return `==================\n Nome: ${this.nome}\n Sigla: ${this.sigla}`;
+    }
 
     static create(data: UfInterface) {
         return new Uf(data);

@@ -3,11 +3,10 @@ import { db } from "../../drizzle/db";
 import { uf } from "../../drizzle/db/schema";
 import { eq } from "drizzle-orm";
 
-
 export class UfRepository {
 
     async create(data: Uf) {
-        const {id, ...props} = data
+        const { id, ...props } = data
 
         const result = await db.insert(uf).values(props);
 
@@ -21,13 +20,12 @@ export class UfRepository {
     }
 
     async findById(id: number): Promise<Uf | null> {
-        const result = await db
-            .select()
-            .from(uf)
-            .where(eq(uf.id, id));
+        const result = await db.query.uf.findFirst({
+            where: (uf) => eq(uf.id, id),
+        })
 
-        if (result.length === 0) return null;
+        if (!result) return null;
 
-        return new Uf(result[0]);
+        return new Uf(result);
     }
 }
