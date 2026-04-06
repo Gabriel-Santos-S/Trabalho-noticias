@@ -1,7 +1,7 @@
 
 import { Noticia } from "../../domain/noticia/noticia-interface";
 import { db } from "../../drizzle/db";
-import { noticia } from "../../drizzle/db/schema";
+import { cidade, noticia, uf } from "../../drizzle/db/schema";
 import { asc, desc, eq } from "drizzle-orm";
 
 export class NoticiaRepository {
@@ -48,5 +48,27 @@ export class NoticiaRepository {
         if (!result) return null;
 
         return new Noticia(result);
+    }
+
+    async findNoticiasByUf(idUf: number, isDesc: boolean): Promise<Noticia[]> {
+        const result = await db
+            .select({
+                id: noticia.id,
+                titulo: noticia.titulo,
+                texto: noticia.texto,
+                cidadeId: noticia.cidadeId,
+                dataCriacao: noticia.dataCriacao,
+            })
+            .from(noticia)
+            .innerJoin(cidade, eq(noticia.cidadeId, cidade.id))
+            .innerJoin(uf, eq(cidade.ufId, uf.id))
+            .where(eq(uf.id, idUf))
+            .orderBy(isDesc
+                ? desc(noticia.dataCriacao)
+                : asc(noticia.dataCriacao)
+            );
+
+        return result.map(item => new Noticia(item));
+
     }
 }
