@@ -1,0 +1,33 @@
+{
+  "name": "trabalho-noticias",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gabriel-Santos-S/Trabalho-noticias.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Gabriel-Santos-S/Trabalho-noticias/issues"
+  },
+  "homepage": "https://github.com/Gabriel-Santos-S/Trabalho-noticias#readme",
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^25.5.2",
+    "drizzle-kit": "^0.31.10",
+    "tsx": "^4.21.0"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.17.2",
+    "better-sqlite3": "^12.8.0",
+    "dotenv": "^17.4.1",
+    "drizzle-orm": "^0.45.2"
+  }
+}
