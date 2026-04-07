@@ -41,14 +41,24 @@ export class NoticiaRepository {
     }
 
     async findById(id: number): Promise<Noticia | null> {
-        const result = await db.query.noticia.findFirst({
-            where: (noticia) => eq(noticia.id, id),
+        const result = await db.select({
+            id: noticia.id,
+            titulo: noticia.titulo,
+            texto: noticia.texto,
+            cidadeId: noticia.cidadeId,
+            dataCriacao: noticia.dataCriacao,
+            nomeCidade: cidade.nome,
         })
+            .from(noticia)
+            .innerJoin(cidade, eq(noticia.cidadeId, cidade.id))
+            .where(eq(noticia.id, id))
+            .limit(1);
 
-        if (!result) return null;
+        if (result.length === 0) return null;
 
-        return new Noticia(result);
+        return new Noticia(result[0]);
     }
+
 
     async findNoticiasByUf(idUf: number, isDesc: boolean): Promise<Noticia[]> {
         const result = await db
@@ -76,6 +86,7 @@ export class NoticiaRepository {
     async listarAgrupadoPorUf() {
         const result = await db
             .select({
+                id: noticia.id,
                 titulo: noticia.titulo,
                 cidade: cidade.nome,
                 uf: uf.sigla,

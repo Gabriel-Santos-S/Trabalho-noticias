@@ -46,8 +46,9 @@ export class Noticia {
         return `==================\n 
         Titulo: ${this.titulo}\n 
         Texto: ${this.texto}\n 
-        CidadeId: ${this.cidadeId}\n 
-        Data: ${dataFormat}`;
+        Cidade: ${this.nomeCidade}\n 
+        Data: ${dataFormat}\n
+        ================== `;
     }
 
     private formatarData(data: Date) {
