@@ -1,4 +1,4 @@
-# 📦 Setup do Projeto
+# 📦 Projeto de notícias
 
 Siga os passos abaixo para configurar e executar o projeto corretamente:
 

@@ -9,6 +9,10 @@ export async function FindAgruparNoticiaUfAll() {
 
     let voltar = false
     const noticias = await noticiaRepository.listarAgrupadoPorUf()
+    if (noticias.length < 1) {
+        console.log("**Sem noticias encontradas**");
+        return null
+    }
 
     while (!voltar) {
         console.log("(d) Detalhar notícia\n(z) Voltar");

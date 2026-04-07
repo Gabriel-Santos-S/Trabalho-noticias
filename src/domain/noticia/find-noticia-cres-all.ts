@@ -10,6 +10,10 @@ export async function FindNoticiaCresAll() {
     if (!noticia) {
         throw new Error(`Falha ao buscar noticias`)
     }
+     if (noticia.length < 1) {
+        console.log("**Sem noticias registradas**");
+        return null
+    }
 
     let opicao = ""
     let isValido = false

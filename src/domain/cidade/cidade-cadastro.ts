@@ -19,7 +19,10 @@ export async function cidadeCadastro() {
         ufId: 0
     })
 
-    if (ufs.length < 1) throw new Error("Erro ao buscar UFs")
+    if (ufs.length < 1) {
+        console.log("**Sem UFs registrados**");
+        return null
+    }
 
 
     while (!isValido) {

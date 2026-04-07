@@ -47,18 +47,22 @@ async function main() {
 
         switch (opcao) {
             case 0:
-                await noticiaCadastro()
+                const nCidades = await noticiaCadastro()
+                if (!nCidades) continue
                 break;
             case 1:
                 const nDecr = await FindNoticiaDecreAll()
+                if (!nDecr) continue
                 nDecr.map(n => console.log(n.msg()))
                 break;
             case 2:
                 const nCresc = await FindNoticiaCresAll()
+                if (!nCresc) continue
                 nCresc.map(n => console.log(n.msg()))
                 break;
             case 3:
                 const nUfEspecifc = await FindNoticiaUfAll()
+                if (!nUfEspecifc) continue
                 nUfEspecifc.map(n => console.log(n.msg()))
                 break;
             case 4:

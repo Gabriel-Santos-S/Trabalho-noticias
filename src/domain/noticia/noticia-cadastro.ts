@@ -12,6 +12,10 @@ export async function noticiaCadastro() {
 
     let isValido = false
     const cidades = await cidadeRepository.findAll()
+    if (cidades.length < 1) {
+        console.log("**Sem cidades registradas**");
+        return null
+    }
     const form = new Noticia({
         titulo: "",
         texto: "",

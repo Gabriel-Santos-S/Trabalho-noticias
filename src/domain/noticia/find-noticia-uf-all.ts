@@ -14,11 +14,19 @@ const ufRepository = new UfRepository()
 export async function FindNoticiaUfAll() {
 
     const ufs = await ufRepository.findAll()
+    if (ufs.length < 1) {
+        console.log("**Sem ufs registrados**");
+        return null
+    }
     const condicoes = await inputCondicoes(ufs)
     const noticias = await noticiaRepository.findNoticiasByUf(condicoes.idUf, condicoes.isDesc)
 
     if (!noticias) {
         throw new Error(`Falha ao buscar noticias`)
+    }
+    if (noticias.length < 1) {
+        console.log("**Noticias não encontradas**");
+        return null
     }
 
     return noticias
