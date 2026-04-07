@@ -4,7 +4,6 @@ import { input } from "../../main";
 
 
 const noticiaRepository = new NoticiaRepository()
-const ufRepository = new UfRepository()
 
 export async function FindAgruparNoticiaUfAll() {
 

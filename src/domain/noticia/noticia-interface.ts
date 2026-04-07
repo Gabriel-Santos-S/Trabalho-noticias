@@ -43,7 +43,7 @@ export class Noticia {
 
     public msg(): string {
         const dataFormat = this.dataCriacao ? this.formatarData(this.dataCriacao) : ""
-        return `==================\n 
+        return `
         Titulo: ${this.titulo}\n 
         Texto: ${this.texto}\n 
         Cidade: ${this.nomeCidade}\n 
