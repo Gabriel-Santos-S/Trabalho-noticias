@@ -21,9 +21,25 @@ export const noticia = sqliteTable("noticia", {
   titulo: text("titulo").notNull(),
   texto: text("texto").notNull(),
   cidadeId: integer("cidade_id").notNull().references(() => cidade.id),
-  dataCriacao: integer("data_criacao", { mode: "timestamp" }).default(sql`(unixepoch())`)  
+  dataCriacao: integer("data_criacao", { mode: "timestamp" }).default(sql`(unixepoch())`)
 });
 
+
+export const tag = sqliteTable("tag", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  nome: text("nome").notNull().unique()
+});
+
+
+export const noticiaTag = sqliteTable("noticia_tag", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  noticiaId: integer("noticia_id")
+    .notNull()
+    .references(() => noticia.id),
+  tagId: integer("tag_id")
+    .notNull()
+    .references(() => tag.id),
+});
 
 // Relações
 
